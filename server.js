@@ -7,7 +7,7 @@ app.get('/', (req, res) => {
     <html>
       <body style="background-color: #282c34; color: white; text-align: center; font-family: sans-serif; padding-top: 50px;">
         <h1>🚀 ¡Despliegue Exitoso!</h1>
-        <p>El pipeline desde CachyOS hasta AWS funciona perfectamente.</p>
+        <p>El pipeline desde ICEITECH hasta AWS funciona perfectamente.</p>
       </body>
     </html>
   `);
