@@ -24,7 +24,7 @@ pipeline {
             steps {
                
                     echo "Iniciando session en Docker Hub..."
-                    withCredentials([usernamePassword(credentialsID: 'docker-hub-credentials', passwordVariable: 'HUB_PSW', usernameVariable: 'HUB_USR')]) {
+                    withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'HUB_PSW', usernameVariable: 'HUB_USR')]) {
                         sh 'echo $HUB_PSW | docker login -u $HUB_USR --password-stdin'
                     }
                 script {
@@ -48,7 +48,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker logout" || true
+            sh "docker logout || true"
         }
     }
 }
