@@ -37,9 +37,11 @@ pipeline {
         stage('4. Despliegue en AWS (Deploy)') {
             steps {
                 script {
-                    echo "Desplegando en AWS ..."
-                    sh "docker compose pull"
-                    sh "docker compose up -d"
+                    echo "Desplegando en AWS  mediante comandos nativos..."
+                    sh "docker pull ${DOCKER_IMAGE}:latest"
+                    sh "docker stop app-produccion-cero || true"
+                    sh "docker rm app-produccion-cero || true"
+                    sh "docker run -d --name app-produccion-cero -p 80:80 --restart always ${DOCKER_IMAGE}:latest"
                     sh "docker system prune -af"
                 }
             }
