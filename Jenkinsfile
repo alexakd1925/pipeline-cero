@@ -3,7 +3,6 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "alexacademy33/pipeline-cero"
-        DOCKER_CREDS = "credentials('docker-hub-credentials')"
     }
 
     stages {
@@ -23,10 +22,12 @@ pipeline {
         }
         stage('3. Subir a Docker Hub (PUSH)') {
             steps {
-                script {
+               
                     echo "Iniciando session en Docker Hub..."
-                    sh "echo ${env.DOCKER_CREDS_PSW} | docker login -u ${env.DOCKER_CREDS_USR} --password-stdin"
-
+                    withCredentials([usernamePassword(credentialsID: 'docker-hub-credentials', passwordVariable: 'HUB_PSW', usernameVariable: 'HUB_USR')]) {
+                        sh 'echo $HUB_PSW | docker login -u $HUB_USR --password-stdin'
+                    }
+                script {
                     echo "Subiendo imagenes...."
                     sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
                     sh "docker push ${DOCKER_IMAGE}:latest"
@@ -47,7 +48,7 @@ pipeline {
     }
     post {
         always {
-            sh "docker logout"
+            sh "docker logout" || true
         }
     }
 }
