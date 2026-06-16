@@ -1,0 +1,8 @@
+Services:
+  app-web:
+    image: alexacademy33/pipeline-cero:latest
+    container_name: app-produccion-cero
+    ports:
+      - "80:80"
+    restart: always
+    
