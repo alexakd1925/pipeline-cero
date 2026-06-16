@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     echo "Iniciando session en Docker Hub..."
-                    sh "echo ${DOCKER_CREDS_PSW} | docker login -u ${DOCKER_CREDS_USR} --password-stdin"
+                    sh 'echo $DOCKER_CREDS_PSW | docker login -u $DOCKER_CREDS_USR --password-stdin'
 
                     echo "Subiendo imagenes...."
                     sh "docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}"
